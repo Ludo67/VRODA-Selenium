@@ -1,6 +1,5 @@
 package com.example.vrodaselenium;
 
-
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -15,13 +14,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class DeleteProductTest {
+public class GetCartTest {
 
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public DeleteProductTest(ChromeDriver driver){
+    public GetCartTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -39,26 +38,24 @@ public class DeleteProductTest {
 
 
     @Test
-    @DisplayName("test-Delete-A-Product")
-    void shouldDeleteAProduct(TestInfo testInfo) throws Exception {
-        driver.get("http://localhost:4200/products/4e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
+    @DisplayName("test-Create-A-Product")
+    void shouldCreateAProduct(TestInfo testInfo) throws Exception {
+        driver.get("http://localhost:4200/products/5e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
         driver.manage().window().maximize();
-
 
         String method = testInfo.getDisplayName();
         createSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
+        driver.findElement(By.id("addToCart")).click();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        driver.findElement(By.id("delete")).click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        driver.switchTo().alert().accept();
+        Thread.sleep(3000);
+        driver.get("http://localhost:4200/cart");
+        Thread.sleep(3000);
         driver.quit();
 
 
