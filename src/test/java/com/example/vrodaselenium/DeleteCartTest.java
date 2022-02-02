@@ -36,7 +36,6 @@ public class DeleteCartTest {
         FileUtils.copyFile(srcFile, destFile);
     }
 
-
     @Test
     @DisplayName("test-Create-A-Product")
     void shouldCreateAProduct(TestInfo testInfo) throws Exception {
@@ -59,9 +58,6 @@ public class DeleteCartTest {
         //driver.switchTo().alert().accept();
         Thread.sleep(3000);
         driver.quit();
-
-
-
 
     }
 }
