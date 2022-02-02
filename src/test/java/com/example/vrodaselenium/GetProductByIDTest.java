@@ -15,13 +15,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class CreateProductTest {
+public class GetProductByIDTest {
 
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public CreateProductTest(ChromeDriver driver){
+    public GetProductByIDTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -39,23 +39,20 @@ public class CreateProductTest {
 
 
     @Test
-    @DisplayName("test-Create-A-Product")
-    void shouldCreateAProduct(TestInfo testInfo) throws Exception {
-        driver.get("http://localhost:4200/addProduct");
+    @DisplayName("test-Get-A-Product")
+    void shouldGetProductByID(TestInfo testInfo) throws Exception {
+        driver.get("http://localhost:4200/products/3e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
         driver.manage().window().maximize();
-
-        driver.findElement(By.xpath("//*[@id=\'category_id\']")).sendKeys("1234");
-        driver.findElement(By.xpath("//*[@id=\'title\']")).sendKeys("Joe Biden's OnlyFan");
-        driver.findElement(By.xpath("//*[@id=\'price\']")).sendKeys("1000000");
-        driver.findElement(By.xpath("//*[@id=\'quantity\']")).sendKeys("2");
-        driver.findElement(By.xpath("//*[@id=\'description\']")).sendKeys("A very nice picture of Joe Biden.");
-
 
 
         String method = testInfo.getDisplayName();
         createSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
-        driver.findElement(By.id("submit")).click();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

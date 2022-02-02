@@ -14,13 +14,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class AddToCartTest {
+public class DeleteItemCartTest {
 
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public AddToCartTest(ChromeDriver driver){
+    public DeleteItemCartTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -35,7 +35,6 @@ public class AddToCartTest {
         File destFile = new File(fileWithPath);
         FileUtils.copyFile(srcFile, destFile);
     }
-
 
     @Test
     @DisplayName("test-Create-A-Product")
@@ -52,10 +51,13 @@ public class AddToCartTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        driver.switchTo().alert().accept();
+        driver.get("http://localhost:4200/cart");
+        Thread.sleep(1500);
+        driver.findElement(By.id("delete")).click();
+        //driver.switchTo().alert().accept();
+        Thread.sleep(3000);
         driver.quit();
-
-
-
 
     }
 }
