@@ -15,13 +15,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class DeleteProductTest {
+public class GetProductByIDTest {
 
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public DeleteProductTest(ChromeDriver driver){
+    public GetProductByIDTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -39,9 +39,9 @@ public class DeleteProductTest {
 
 
     @Test
-    @DisplayName("test-Delete-A-Product")
-    void shouldDeleteAProduct(TestInfo testInfo) throws Exception {
-        driver.get("http://localhost:4200/products/4e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
+    @DisplayName("test-Get-A-Product")
+    void shouldGetProductByID(TestInfo testInfo) throws Exception {
+        driver.get("http://localhost:4200/products/3e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
         driver.manage().window().maximize();
 
 
@@ -53,7 +53,6 @@ public class DeleteProductTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        driver.findElement(By.id("delete")).click();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
