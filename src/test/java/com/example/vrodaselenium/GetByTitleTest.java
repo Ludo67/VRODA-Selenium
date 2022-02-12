@@ -14,13 +14,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class GetCartItemsTest {
-
+public class GetByTitleTest {
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public GetCartItemsTest(ChromeDriver driver){
+    public GetByTitleTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -38,28 +37,28 @@ public class GetCartItemsTest {
 
 
     @Test
-    @DisplayName("test-Get-Cart")
-    void shouldGetAProduct(TestInfo testInfo) throws Exception {
-        driver.get("http://localhost:4200/products/5e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
+    @DisplayName("test-View-Title-Products")
+    void shouldViewProductsByTitle(TestInfo testInfo) throws Exception{
+        driver.get("http://localhost:4200/");
         driver.manage().window().maximize();
 
-        String method = testInfo.getDisplayName();
-        createSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+        driver.findElement(By.name("search")).sendKeys("Mozart1");
+        driver.findElement(By.id("submitNav")).click();
 
-        driver.findElement(By.id("addToCart")).click();
-        try {
+        String method = testInfo.getDisplayName();
+        createSnapShot(driver,SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+/*
+        WebElement productsLink = driver.findElement(By.xpath("//a[@href='Products.html']"));
+        productsLink.click();
+*/
+
+
+        try{
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
+        }
+        catch(InterruptedException e){
             e.printStackTrace();
         }
-        driver.switchTo().alert().accept();
-        Thread.sleep(3000);
-        driver.get("http://localhost:4200/cart");
-        Thread.sleep(3000);
         driver.quit();
-
-
-
-
     }
 }

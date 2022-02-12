@@ -1,5 +1,6 @@
 package com.example.vrodaselenium;
 
+
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -14,13 +15,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class GetCartItemsTest {
+public class UpdateProductTest {
 
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public GetCartItemsTest(ChromeDriver driver){
+    public UpdateProductTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -38,24 +39,30 @@ public class GetCartItemsTest {
 
 
     @Test
-    @DisplayName("test-Get-Cart")
-    void shouldGetAProduct(TestInfo testInfo) throws Exception {
+    @DisplayName("test-Update-A-Product")
+    void shouldUpdateAProduct(TestInfo testInfo) throws Exception {
         driver.get("http://localhost:4200/products/5e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
         driver.manage().window().maximize();
+
+
+        driver.findElement(By.id("update")).click();
+        driver.findElement(By.id("categoryId")).sendKeys("1234");
+        driver.findElement(By.id("title")).sendKeys("Joe Biden's OnlyFan");
+        driver.findElement(By.id("price")).sendKeys("1000000");
+        driver.findElement(By.id("quantity")).sendKeys("2");
+        driver.findElement(By.id("description")).sendKeys("A very nice picture of Joe Biden.");
+
+
 
         String method = testInfo.getDisplayName();
         createSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
-        driver.findElement(By.id("addToCart")).click();
+        driver.findElement(By.id("submit")).click();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        driver.switchTo().alert().accept();
-        Thread.sleep(3000);
-        driver.get("http://localhost:4200/cart");
-        Thread.sleep(3000);
         driver.quit();
 
 
