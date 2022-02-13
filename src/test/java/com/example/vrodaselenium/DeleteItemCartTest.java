@@ -39,7 +39,7 @@ public class DeleteItemCartTest {
     @Test
     @DisplayName("test-Delete-A-Product")
     void shouldDeleteAProduct(TestInfo testInfo) throws Exception {
-        driver.get("http://localhost:4200/products/5e4e8504-f5d1-448b-8f90-c9b220cdb5a8");
+        driver.get("http://localhost:4200/products/67847fd2-e06f-47a3-9e33-96f2fd240fec");
         driver.manage().window().maximize();
 
         String method = testInfo.getDisplayName();

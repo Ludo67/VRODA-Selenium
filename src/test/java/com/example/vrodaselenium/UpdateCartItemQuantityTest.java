@@ -14,13 +14,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class AddProductCartTest {
+public class UpdateCartItemQuantityTest {
 
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public AddProductCartTest(ChromeDriver driver){
+    public UpdateCartItemQuantityTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -38,8 +38,8 @@ public class AddProductCartTest {
 
 
     @Test
-    @DisplayName("test-Create-A-Product")
-    void shouldCreateAProduct(TestInfo testInfo) throws Exception {
+    @DisplayName("test-Update-Cart-Item-Quantity-Test")
+    void shouldUpdateCartItemQuantity(TestInfo testInfo) throws Exception {
         driver.get("http://localhost:4200/products/67847fd2-e06f-47a3-9e33-96f2fd240fec");
         driver.manage().window().maximize();
 
@@ -47,11 +47,27 @@ public class AddProductCartTest {
         createSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
         driver.findElement(By.id("addToCart")).click();
+
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
+
+//        driver.switchTo().alert().accept();
+        Thread.sleep(1500);
+        driver.get("http://localhost:4200/cart");
+        Thread.sleep(1500);
+        driver.findElement(By.className("quantity")).sendKeys(Keys.BACK_SPACE);
+        Thread.sleep(1500);
+        driver.findElement(By.className("quantity")).sendKeys("2");
+        Thread.sleep(1500);
+        driver.findElement(By.className("quantity")).sendKeys(Keys.ENTER);
+        Thread.sleep(1500);
+        driver.findElement(By.id("totText"));
         driver.quit();
 
 

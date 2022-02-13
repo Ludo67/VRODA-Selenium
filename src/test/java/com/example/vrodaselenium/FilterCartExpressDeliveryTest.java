@@ -14,13 +14,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 
 @ExtendWith(SeleniumExtension.class)
-public class AddProductCartTest {
-
+public class FilterCartExpressDeliveryTest {
 
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenShots";
 
-    public AddProductCartTest(ChromeDriver driver){
+    public FilterCartExpressDeliveryTest(ChromeDriver driver){
         this.driver = driver;
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
@@ -38,24 +37,29 @@ public class AddProductCartTest {
 
 
     @Test
-    @DisplayName("test-Create-A-Product")
-    void shouldCreateAProduct(TestInfo testInfo) throws Exception {
-        driver.get("http://localhost:4200/products/67847fd2-e06f-47a3-9e33-96f2fd240fec");
+    @DisplayName("test-Filter-Cart-Express-Delivery")
+    void shouldFilterCartPlusDelivery(TestInfo testInfo) throws Exception{
+        driver.get("http://localhost:4200/cart");
         driver.manage().window().maximize();
 
         String method = testInfo.getDisplayName();
-        createSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
-
-        driver.findElement(By.id("addToCart")).click();
-        try {
+        createSnapShot(driver,SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+/*
+        WebElement productsLink = driver.findElement(By.xpath("//a[@href='Products.html']"));
+        productsLink.click();
+*/
+        Thread.sleep(2000);
+        driver.findElement(By.id("delivery")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("Express")).click();
+        Thread.sleep(2000);
+        try{
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
+        }
+        catch(InterruptedException e){
             e.printStackTrace();
         }
         driver.quit();
-
-
-
-
     }
+
 }
